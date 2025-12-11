@@ -1,0 +1,29 @@
+// api/build.gradle
+dependencies {
+    // 1. 웹 서버 구동 및 MVC 기능 (API 서버의 핵심 역할)
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // 2. core 모듈의 Entity/Service 사용을 위한 의존성
+    // (root build.gradle의 subprojects 블록에 선언되지 않은 필수 의존성)
+    implementation project(':core')
+
+    // 3. JPA 구현체 (api 모듈이 실제 영속성 관리를 담당하므로 필요)
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+
+    // 4. DB 드라이버
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // 5. 테스트 의존성 (⭐ testImplementation은 root에 있으므로,
+    //    JPA 테스트를 위해 추가적인 의존성이 필요 없다고 가정합니다.
+    //    만약 testImplementation이 root에 없다면 'org.springframework.boot:spring-boot-starter-test'를 추가해야 합니다.)
+
+    // 6. Junit Launcher는 root에서 이미 관리하고 있으므로 제거하거나,
+    //    root에 없다면 testImplementation으로 변경하여 사용합니다.
+    // testImplementation 'org.junit.platform:junit-platform-launcher' 
+}
+
+// tasks.named('test') {
+//     useJUnitPlatform()
+// }
+// 이 설정도 root build.gradle의 subprojects 블록에 있으면 제거합니다.
